@@ -27,6 +27,6 @@ func main() {
 	fmt.Print("Enter a space-delimeted list: ")
 	scanner.Scan()
 	liststr := scanner.Text()
-	list := strings.Split(liststr, ",")
+	list := strings.Split(liststr, " ")
 	fmt.Printf("%v\n", Unsort(list))
 }
