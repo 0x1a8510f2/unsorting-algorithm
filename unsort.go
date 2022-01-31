@@ -25,9 +25,7 @@ func Unsort(list []string) []string {
 func BetterUnsort(list []string) []string {
 	for i := len(list)-1; i >= 1; i-- {
 		swapindex := rand.Intn(i+1)
-		tmp := list[swapindex]
-		list[swapindex] = list[i]
-		list[i] = tmp
+		list[swapindex], list[i] = list[i], list[swapindex]
 	}
 	return list
 }
