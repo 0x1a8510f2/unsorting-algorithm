@@ -22,7 +22,7 @@ func TestUnsort(t *testing.T) {
 		"9": 0,
 	}
 	for i := 100000; i > 0; i-- {
-		unsorted := Unsort(sorted)
+		unsorted := BetterUnsort(sorted)
 		counter[unsorted[0]]++
 	}
 	leastvalue := ""

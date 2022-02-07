@@ -21,6 +21,15 @@ func Unsort(list []string) []string {
 	return list
 }
 
+// Better unsorting algorithm
+func BetterUnsort(list []string) []string {
+	for i := len(list)-1; i >= 1; i-- {
+		swapindex := rand.Intn(i+1)
+		list[swapindex], list[i] = list[i], list[swapindex]
+	}
+	return list
+}
+
 // Unsort wrapper for demo purposes
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
