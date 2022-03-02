@@ -4,10 +4,22 @@ import (
 	"fmt"
 	"math"
 	"encoding/json"
+	"flag"
 	"testing"
 )
 
+type unsortfuncpair struct {
+	name string
+	Run func([]string) []string
+}
+
+var ufindex = flag.Int("func", 0, "Specify the unsort function to be used by its index. 0=BasicUnsort, 1=OneSwapIndexUnsort")
+
 func TestUnsort(t *testing.T) {
+	unsortoptions := []unsortfuncpair {
+		{"Basic unsort", BasicUnsort},
+		{"One swap index unsort", OneSwapIndexUnsort},
+	}
 	sorted := []string{"0","1","2","3","4","5","6","7","8","9"}
 	counter := map[string]int{
 		"0": 0,
@@ -21,8 +33,14 @@ func TestUnsort(t *testing.T) {
 		"8": 0,
 		"9": 0,
 	}
+	if *ufindex < 0 || *ufindex > 1 {
+		t.Errorf("Invalid unsort function index")
+		return
+	}
+	unsortfunc := unsortoptions[*ufindex]
+	fmt.Printf("--- %s ---\n", unsortfunc.name)
 	for i := 100000; i > 0; i-- {
-		unsorted := Unsort(sorted)
+		unsorted := unsortfunc.Run(sorted)
 		counter[unsorted[0]]++
 	}
 	leastvalue := ""
